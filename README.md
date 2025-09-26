@@ -119,3 +119,37 @@ Clean
 ```
 rm common_peaks.bed *spec*bed
 ```
+
+### Plot results - this needs to be executed in an R/Rstudio env
+```
+# Read file containing peaks from both methods and their signal
+res <- read.table("intersected_peaks.bed",sep='\t',header=F)
+names(res) <- c("peak","nfcore","seacr")
+
+ggplot(res,aes(x=nfcore,y=seacr)) +
+  theme_classic() +
+  geom_point(size=2,shape=21,fill="indianred",color='black') +
+  # x axis
+  xlab("nfcore approach") +
+  theme(axis.title.x = element_text(size = 12,color = "black")) +
+  theme(axis.text.x = element_text(size = 10)) +
+  # y axis
+  ylab("seacr GitHub approach") +
+  theme(axis.title.y = element_text(size = 12,color = "black")) +
+  theme(axis.text.y = element_text(size = 10)) +
+  coord_cartesian(xlim = c(0,max(max(res$nfcore),max(res$seacr))),
+                  ylim = c(0,max(max(res$nfcore),max(res$seacr)))) +
+  # add line
+  geom_abline(intercept = 1, slope = 1) +
+  # add cor test results
+  annotate("text",x=10000,y=35000,
+           label=paste0("R = ",
+                        round(cor.test(res$nfcore,res$seacr)$estimate,2),
+                        "; p = ",
+                        formatC(cor.test(res$nfcore,res$seacr)$p.value,digits = 2,format = 'e')))
+```
+
+
+
+
+
