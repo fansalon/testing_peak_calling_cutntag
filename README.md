@@ -126,6 +126,21 @@ rm common_peaks.bed *spec*bed
 res <- read.table("intersected_peaks.bed",sep='\t',header=F)
 names(res) <- c("peak","nfcore","seacr")
 
+################################################################################
+# Get metrics
+
+# number of peaks identified only by nfcore approach
+n1 <- nrow(subset(res,nfcore>0 & seacr==0))
+n2 <- nrow(subset(res,nfcore==0 & seacr>0))
+
+# total number of peaks
+t1 <- nrow(subset(res,nfcore>0))
+t2 <- nrow(subset(res,seacr>0))
+
+# shared
+s1 <- nrow(subset(res,nfcore>0 & seacr>0))
+################################################################################
+
 ggplot(res,aes(x=nfcore,y=seacr)) +
   theme_classic() +
   geom_point(size=2,shape=21,fill="indianred",color='black') +
@@ -142,11 +157,19 @@ ggplot(res,aes(x=nfcore,y=seacr)) +
   # add line
   geom_abline(intercept = 1, slope = 1) +
   # add cor test results
-  annotate("text",x=10000,y=35000,
+  annotate("text",x=20000,y=41000,
            label=paste0("R = ",
                         round(cor.test(res$nfcore,res$seacr)$estimate,2),
                         "; p = ",
-                        formatC(cor.test(res$nfcore,res$seacr)$p.value,digits = 2,format = 'e')))
+                        formatC(cor.test(res$nfcore,res$seacr)$p.value,digits = 2,format = 'e')),
+           color='red') +
+  # add metrics
+  annotate("text",x=4000,y=30000,label=paste0("SEACR\nTot peaks = ",t2,
+                                              "\nSpecific = ",n2,
+                                              "\nShared = ",s1),size=3) +
+  annotate("text",x=35000,y=3000,label=paste0("nfcore\nTot peaks = ",t1,
+                                              "\nSpecific = ",n1,
+                                              "\nShared = ",s1),size=3)
 ```
 
 
