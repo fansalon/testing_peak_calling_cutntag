@@ -27,11 +27,16 @@ This follows the code developed in the bedtools genomecov module of the nf_core 
 ```
 
 # Define args
-sample=chr1
+sample=chr19
 genome=Mus_musculus_GRCm39.chrom.sizes
 
+# Prepare directory
+mkdir nfcore_approach
+cd nfcore_approach
+
 # Convert BAM to bedgraph
+bedtools genomecov -bga -ibam ../input/${sample}.bam > ${sample}.bedgraph
 
 # Call peaks
-
+SEACR_1.3.sh ${sample}.bedgraph 0.01 norm stringent seacr_out	
 ```
