@@ -25,10 +25,8 @@ cd testing_peak_calling_cutntag
 This follows the code developed in the bedtools genomecov module of the nf_core CUT&Run pipeline (https://github.com/nf-core/cutandrun/blob/master/modules/nf-core/bedtools/genomecov/main.nf).
 
 ```
-
 # Define args
 sample=chr19
-genome=Mus_musculus_GRCm39.chrom.sizes
 
 # Prepare directory
 mkdir nfcore_approach
@@ -38,5 +36,37 @@ cd nfcore_approach
 bedtools genomecov -bga -ibam ../input/${sample}.bam > ${sample}.bedgraph
 
 # Call peaks
-SEACR_1.3.sh ${sample}.bedgraph 0.01 norm stringent seacr_out	
+SEACR_1.3.sh ${sample}.bedgraph 0.01 norm stringent seacr_out
+
+cd ..
+```
+
+
+## SEACR GitHub
+This follows the code described in SEACR GitHub (https://github.com/FredHutch/SEACR?tab=readme-ov-file#preparing-input-bedgraph-files)
+
+```
+# Define args
+sample=chr19
+genome=Mus_musculus_GRCm39.chrom.sizes
+
+# Prepare directory
+mkdir seacr_approach
+cd seacr_approach
+
+# sort by query	
+samtools sort -@ 10 -n -o ${sample}_sorted.bam ../input/${sample}.bam
+
+# convert to bed
+bedtools bamtobed -bedpe -i ${sample}_sorted.bam > ${sample}.bed
+
+# extract fragments shorter than 1kb
+cat ${sample}.bed | awk '$1==$4 && $6-$2 < 1000 {print $0}' > $sample.clean.bed
+cut -f 1,2,6 $sample.clean.bed | sort -k1,1 -k2,2n -k3,3n > $sample.fragments.bed
+
+# convert to bedgraph
+bedtools genomecov -bg -i $sample.fragments.bed -g ../input/$genome > $sample.fragments.bedgraph
+
+# call peaks
+SEACR_1.3.sh ${sample}.fragments.bedgraph 0.01 norm stringent seacr_out	
 ```
