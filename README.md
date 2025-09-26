@@ -172,7 +172,7 @@ ggplot(res,aes(x=nfcore,y=seacr)) +
                                               "\nShared = ",s1),size=3)
 ```
 
-<img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/cor_res.png" width="500" height="500"/>
+<img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/cor_res.png" width="750" height="750"/>
 
 
 
