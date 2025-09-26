@@ -94,7 +94,7 @@ This means that of the 403 peaks identified in ```nfcore_approach/seacr_out.stri
 In addition, the Jaccard statistics is 0.62 - which I wouldn't call "great".
 
 
-### Peak signel
+### Peak signal
 
 A second, probably better, way to compare the peaks is to compare the SEACR peak signal in the peaks identified by the one or the other method.
 
@@ -113,4 +113,9 @@ bedtools intersect -c -a seacr_approach/seacr_out.stringent.bed -b nfcore_approa
 Combine them all, and sort:
 ```
 cat common_peaks.bed seacr_specific.bed nfcore_specific.bed | sort -k1,1 > intersected_peaks.bed
+```
+
+Clean
+```
+rm common_peaks.bed *spec*bed
 ```
