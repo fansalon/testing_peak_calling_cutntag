@@ -14,6 +14,12 @@ Both approaches convert the BAM file to bedgraph by ```bedtools genomecov```. Ho
 
 The main difference is that the approach reccomended by SEACR GitHub ensures that the bedgraph files reflect the density across read *pairs*, whereas by using nf_core CUT&Run pipeline the bedgraph files reflect the density of individual reads. 
 
+Before starting, get the repository and get into the directory:
+```
+git clone https://github.com/fansalon/testing_peak_calling_cutntag.git
+cd testing_peak_calling_cutntag
+```
+
 
 ## nf_core CUT&Run pipeline
 This follows the code developed in the bedtools genomecov module of the nf_core CUT&Run pipeline (https://github.com/nf-core/cutandrun/blob/master/modules/nf-core/bedtools/genomecov/main.nf).
