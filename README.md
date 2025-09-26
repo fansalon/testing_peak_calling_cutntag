@@ -11,5 +11,7 @@ To investigate this I am comparing the method implemented in the nf_core CUT&Run
 ## Rationale behind nf_core CUT&Run pipeline and custom code from SEACR GitHub
 Both approaches convert the BAM file to bedgraph by ```bedtools genomecov```. However, while nf_core CUT&Run pipeline generates the bedgraph directly from the BAM file, SEACR GitHub suggests to first get the fragment coordinates from the BAM and then to convert such a file to bedgraph.
 
+The main difference is that the approach reccomended by SEACR GitHub ensures that bedgraph files reflect the density across read *pairs* rather than individual reads. 
+
 
 Following the code developed in the bedtools genomecov module of the nf_core CUT&Run pipeline (https://github.com/nf-core/cutandrun/blob/master/modules/nf-core/bedtools/genomecov/main.nf)
