@@ -68,5 +68,27 @@ cut -f 1,2,6 $sample.clean.bed | sort -k1,1 -k2,2n -k3,3n > $sample.fragments.be
 bedtools genomecov -bg -i $sample.fragments.bed -g ../input/$genome > $sample.fragments.bedgraph
 
 # call peaks
-SEACR_1.3.sh ${sample}.fragments.bedgraph 0.01 norm stringent seacr_out	
+SEACR_1.3.sh ${sample}.fragments.bedgraph 0.01 norm stringent seacr_out
+
+cd ../
 ```
+
+
+## Compare peaks
+
+A first, generic, way to compare bed files is to use Jaccard statistic.
+We can do that, by using ```bedtools jaccard``` as follow:
+```
+bedtools jaccard -a nfcore_approach/seacr_out.stringent.bed -b seacr_approach/seacr_out.stringent.bed 
+```
+
+Which returns:
+```
+intersection	union	jaccard	n_intersections
+375126	606045	0.618974	289
+```
+
+This means that of the 403 peaks identified in ```nfcore_approach/seacr_out.stringent.bed``` only 289 (~70%) were also found in ```seacr_approach/seacr_out.stringent.bed ```.
+In addition, the Jaccard statistics is 0.62 - which I wouldn't call "great".
+
+
