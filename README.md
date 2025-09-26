@@ -76,6 +76,8 @@ cd ../
 
 ## Compare peaks
 
+### Jaccard statistic
+
 A first, generic, way to compare bed files is to use Jaccard statistic.
 We can do that, by using ```bedtools jaccard``` as follow:
 ```
@@ -92,3 +94,23 @@ This means that of the 403 peaks identified in ```nfcore_approach/seacr_out.stri
 In addition, the Jaccard statistics is 0.62 - which I wouldn't call "great".
 
 
+### Peak signel
+
+A second, probably better, way to compare the peaks is to compare the SEACR peak signal in the peaks identified by the one or the other method.
+
+To this end, peaks identified by both methods are intersected and the signal from the ones overlapping for at least 1 bp extracted:
+```
+bedtools intersect -wo -a nfcore_approach/seacr_out.stringent.bed -b seacr_approach/seacr_out.stringent.bed | awk '{ print $1"_"$2"_"$3"@"$7"_"$8"_"$9 "\t" $4 "\t" $10 }' > common_peaks.bed
+```
+
+Now we need to add the peaks identified by one tool only. These peaks will be assigned a signal of 0 in the method that failed in identifying them:
+```
+# identified only by nf_core
+bedtools intersect -c -a nfcore_approach/seacr_out.stringent.bed -b seacr_approach/seacr_out.stringent.bed | awk '{ if ($NF==0) print $1"_"$2"_"$3"@NA\t" $4 "\t" 0 }' > nfcore_specific.bed
+bedtools intersect -c -a seacr_approach/seacr_out.stringent.bed -b nfcore_approach/seacr_out.stringent.bed | awk '{ if ($NF==0) print "NA@"$1"_"$2"_"$3"\t0\t" $4 }' > seacr_specific.bed
+```
+
+Combine them all, and sort:
+```
+cat common_peaks.bed seacr_specific.bed nfcore_specific.bed | sort -k1,1 > intersected_peaks.bed
+```
