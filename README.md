@@ -88,7 +88,7 @@ intersection	union	jaccard	n_intersections
 375126	606045	0.618974	289
 ```
 
-This means that of the 403 peaks identified in ```nfcore_approach/seacr_out.stringent.bed``` only 289 (~70%) were also found in ```seacr_approach/seacr_out.stringent.bed ```.
+This means that of the 403 peaks identified in ```nfcore_approach/seacr_out.stringent.bed``` only 289 (~70%) were also found in ```seacr_approach/seacr_out.stringent.bed ```.\
 In addition, the Jaccard statistics is 0.62 - which I wouldn't call "great".
 
 
