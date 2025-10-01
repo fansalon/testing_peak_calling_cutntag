@@ -187,5 +187,13 @@ On the positive side, all the tool-specific peaks are associated to lower CUT&Ta
 ### IGV screenshots
 Defining which of the two approaches is correct it hard, if not impossible. But a perhaps good way to test this is to visually inspect some IGV screenshot trying to define why and where some peaks are called only when following the nfcore approach.
 
+To do so, I have uploaded H3K27ac data for the sample in analysis (chr19 only): bedgraph files from both SEACR GitHub and nfcore methods, bed files containing the identified peaks as well as the bam file.
+
+Then, I started looking for some peaks identified by the nfcore approach only, and found one at Ndufv1 promoter:
+
+<img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/screenshot_Ndufv1.png" width="750" height="750"/>
+
+
+
 
 
