@@ -210,6 +210,11 @@ bedtools intersect -wao -a peak_summit.bed -b seacr_approach/chr1*bedgraph
 
 ```
 
+From the code above, it is clear how the nfcore approach counted 11 reads in the peak summit region, wheres the SEACR GitHub approach counted only 8. When checking this on IGV by looking at the reads in the BAM file mapping to the peak summit, it appears evident how there are 3 read pairs (darker blue/violet) and 5 single reads (lighter blue/violet).
+
+These were counted 8 by the SEACR GitHub approach (each pair is counted once [3], each single read is counted once [5]) and 11 by the nfcore approach (each peair is counted twice [6], each single read is counted once [5]).
+
+<img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/screenshot_Ndufv1_summit.png" width="1000" height="750"/>
 
 
 
