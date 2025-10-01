@@ -218,12 +218,9 @@ From the code above, it is clear how the nfcore approach counted 11 reads in the
 These were counted 8 by the SEACR GitHub approach (each pair is counted once [=3], each single read is counted once [=5]) and 11 by the nfcore approach (each peair is counted twice [=6], each single read is counted once [=5]).
 
 
+The way the two different approaches are implemented justifies tha different number of reads associated to the peak summit, and to the whole peak in general. This also affects the way SEACR calls peaks: probably SEACR considered the signal from the nfocre approach enough to call a peak in that region and the one from the SECAR GitHub approach one not enough to call a peak.
 
-
-
-Probably SEACR considered the signal from the blue track enough to call a peak and the one from the red one not enough to call a peak.
-
-However, we need to investigate
+This also means that well-supported peaks should not be affected by this SE/PE counting issue.
 
 
 
