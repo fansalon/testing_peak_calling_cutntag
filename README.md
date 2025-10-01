@@ -211,11 +211,11 @@ bedtools intersect -wao -a peak_summit.bed -b seacr_approach/chr1*bedgraph
 
 ```
 
-From the code above, it is clear how the nfcore approach counted 11 reads in the peak summit region, whereas the SEACR GitHub approach counted only 8. When checking this on IGV by looking at the reads in the BAM file mapping to the peak summit, it appears evident how there are 3 read pairs (darker blue/violet) and 5 single reads (lighter blue/violet).
+From the code above, it is clear how the nfcore approach counted 11 reads in the peak summit region, whereas the SEACR GitHub approach counted only 8. When checking this on IGV by looking at the reads in the BAM file mapping to the peak summit, it appears evident how there are 8 reads in total, 3 of which are mapped as pairs (pink AND violet together/overlapping) and 5 mapped as single reads (pink OR violet).
 
 <img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/screenshot_Ndufv1_summit.png" width="1000" height="750"/>
 
-These were counted 8 by the SEACR GitHub approach (each pair is counted once [=3], each single read is counted once [=5]) and 11 by the nfcore approach (each peair is counted twice [=6], each single read is counted once [=5]).
+These were counted 8 by the SEACR GitHub approach (each pair is counted once [=3], each single read is counted once [=5]) and 11 by the nfcore approach (each pair is counted twice [=6], each single read is counted once [=5]).
 
 
 The way the two different approaches are implemented justifies the different number of reads associated to the peak summit, and to the whole peak in general. However, this also affects the way SEACR calls peaks: probably SEACR considered the signal from the nfocre approach enough to call a peak in that region and the one from the SECAR GitHub approach one not enough to call a peak.
