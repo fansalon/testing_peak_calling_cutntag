@@ -185,7 +185,7 @@ On the positive side, all the tool-specific peaks are associated to lower CUT&Ta
 
 
 ### IGV screenshots
-Defining which of the two approaches is correct it hard, if not impossible. But a perhaps good way to test this is to visually inspect some IGV screenshot trying to define why and where some peaks are called only when following the nfcore approach.
+Defining which of the two approaches is correct is hard, if not impossible. But a perhaps good way to test this is to visually inspect some IGV screenshots trying to define why and where some peaks are called only when following the nfcore approach.
 
 To do so, I have uploaded H3K27ac data for the sample in analysis (chr19 only): bedgraph files from both SEACR GitHub and nfcore methods, bed files containing the identified peaks as well as the bam file.
 
@@ -193,7 +193,7 @@ Then, I started looking for some peaks identified by the nfcore approach only, a
 
 <img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/screenshot_Ndufv1.png" width="1000" height="750"/>
 
-The bedgraph tracks from the two approaches look quite similar, however, the nfcore-genrated bigwig (light blue) display higher signal than the SEACR GitHub one (light red). The reason for this is a consequence of how the tracks were generated. nfcore approach worked at the level of each single read (*i.e.*, each pair was counted twice) while the approach suggested by SEACR GitHub worked at the level of pairs (*i.e.*, each pair was counted once).
+The bedgraph tracks from the two approaches look quite similar, however, the nfcore-generated bigwig (light blue) display higher signal than the SEACR GitHub one (light red). The reason for this is a consequence of how the tracks were generated. nfcore approach worked at the level of each single read (*i.e.*, each pair was counted twice) while the approach suggested by SEACR GitHub worked at the level of pairs (*i.e.*, each pair was counted once).
 
 We can have a direct proof of this when looking at the peak summit (chr19:4,062,652-4,062,672).
 
@@ -204,17 +204,20 @@ echo -e "19\t4062652\t4062672" > peak_summit.bed
 
 # extract signal from bedgraphs relative to the peak summit
 bedtools intersect -wao -a peak_summit.bed -b nfcore_approach/chr1*bedgraph
-# 19	4062652	4062672	19	4062652	4062672	11	20
+# --> 19	4062652	4062672	19	4062652	4062672	11	20
+
 bedtools intersect -wao -a peak_summit.bed -b seacr_approach/chr1*bedgraph
-# 19	4062652	4062672	19	4062637	4062672	8	20
+# --> 19	4062652	4062672	19	4062637	4062672	8	20
 
 ```
 
-From the code above, it is clear how the nfcore approach counted 11 reads in the peak summit region, wheres the SEACR GitHub approach counted only 8. When checking this on IGV by looking at the reads in the BAM file mapping to the peak summit, it appears evident how there are 3 read pairs (darker blue/violet) and 5 single reads (lighter blue/violet).
+From the code above, it is clear how the nfcore approach counted 11 reads in the peak summit region, whereas the SEACR GitHub approach counted only 8. When checking this on IGV by looking at the reads in the BAM file mapping to the peak summit, it appears evident how there are 3 read pairs (darker blue/violet) and 5 single reads (lighter blue/violet).
+
+<img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/screenshot_Ndufv1_summit.png" width="1000" height="750"/>
 
 These were counted 8 by the SEACR GitHub approach (each pair is counted once [3], each single read is counted once [5]) and 11 by the nfcore approach (each peair is counted twice [6], each single read is counted once [5]).
 
-<img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/screenshot_Ndufv1_summit.png" width="1000" height="750"/>
+
 
 
 
