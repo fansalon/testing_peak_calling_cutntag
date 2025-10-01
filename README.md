@@ -191,7 +191,7 @@ To do so, I have uploaded H3K27ac data for the sample in analysis (chr19 only): 
 
 Then, I started looking for some peaks identified by the nfcore approach only, and found one at Ndufv1 promoter:
 
-<img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/screenshot_Ndufv1.png" width="750" height="750"/>
+<img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/screenshot_Ndufv1.png" width="1000" height="750"/>
 
 
 
