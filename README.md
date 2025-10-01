@@ -193,7 +193,29 @@ Then, I started looking for some peaks identified by the nfcore approach only, a
 
 <img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/screenshot_Ndufv1.png" width="1000" height="750"/>
 
+The bedgraph tracks from the two approaches look quite similar, however, the nfcore-genrated bigwig (light blue) display higher signal than the SEACR GitHub one (light red). The reason for this is a consequence of how the tracks were generated. nfcore approach worked at the level of each single read (*i.e.*, each pair was counted twice) while the approach suggested by SEACR GitHub worked at the level of pairs (*i.e.*, each pair was counted once).
 
+We can have a direct proof of this when looking at the peak summit (chr19:4,062,652-4,062,672).
+
+```
+
+# define peak summit
+echo -e "19\t4062652\t4062672" > peak_summit.bed
+
+# extract signal from bedgraphs relative to the peak summit
+bedtools intersect -wao -a peak_summit.bed -b nfcore_approach/chr1*bedgraph
+# 19	4062652	4062672	19	4062652	4062672	11	20
+bedtools intersect -wao -a peak_summit.bed -b seacr_approach/chr1*bedgraph
+# 19	4062652	4062672	19	4062637	4062672	8	20
+
+```
+
+
+
+
+Probably SEACR considered the signal from the blue track enough to call a peak and the one from the red one not enough to call a peak.
+
+However, we need to investigate
 
 
 
