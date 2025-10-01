@@ -215,7 +215,7 @@ From the code above, it is clear how the nfcore approach counted 11 reads in the
 
 <img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/screenshot_Ndufv1_summit.png" width="1000" height="750"/>
 
-These were counted 8 by the SEACR GitHub approach (each pair is counted once [3], each single read is counted once [5]) and 11 by the nfcore approach (each peair is counted twice [6], each single read is counted once [5]).
+These were counted 8 by the SEACR GitHub approach (each pair is counted once [=3], each single read is counted once [=5]) and 11 by the nfcore approach (each peair is counted twice [=6], each single read is counted once [=5]).
 
 
 
