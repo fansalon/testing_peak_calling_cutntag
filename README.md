@@ -174,6 +174,9 @@ ggplot(res,aes(x=nfcore,y=seacr)) +
 
 <img src="https://github.com/fansalon/testing_peak_calling_cutntag/blob/main/results/cor_res.png" width="750" height="750"/>
 
+The figure above shows a discrete degree of correlation. Although the correlation is statistically significant (p=1.15e-89), the correlation score is good, but not super high (R=0.78) - considering we are just testing two different methods on the very same sample!\
+In particular, what worries me the most is that there are 114 peaks that are identified only by the nfcore approach, and not by other. Whereas, on the other hand, there are only 36 peaks identified only by the SEACR GitHub approach. This means that almost all the peaks identified by SEACR GitHub are also identified by the nfcore approach, while the vice-versa is not true. This suggests that the nfcore approach idenitifies more peaks: either nfcore approach is more sensitive and these peaks are real peaks, or it is less specific and these peaks are false positives.
+
 
 
 
